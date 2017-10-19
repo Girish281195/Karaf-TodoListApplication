@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+        <groupId>com.todos</groupId>
+        <artifactId>todo</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <!-- <relativePath>../pom.xml</relativePath> -->
+  </parent> 
+  <modelVersion>4.0.0</modelVersion>
+  <!-- <groupId>com.todos</groupId> -->
+  <artifactId>todo-persistence</artifactId>
+  <!-- <version>1.0.0-SNAPSHOT</version> -->
+  <packaging>bundle</packaging>
+    <properties>
+        <maven-bundle-plugin.version>3.3.0</maven-bundle-plugin.version>
+        <osgi.version>6.0.0</osgi.version>
+    </properties>
+
+      <dependencies>
+      	<dependency>
+      	  <groupId>com.todos</groupId>
+            <artifactId>todo-api</artifactId>
+            <version>${project.version}</version>
+      	</dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>${osgi.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>javax.transaction-api</artifactId>
+            <version>1.2</version>
+        </dependency>
+    </dependencies>
+ <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${maven-bundle-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Export-Package>
+                            com.todos.persistence*;version=${project.version}
+                        </Export-Package>
+                        <Meta-Persistence>META-INF/persistence.xml</Meta-Persistence>
+                        <Import-Package>
+                            *
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+			 <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <maxmem>256M</maxmem>
+                </configuration>
+            </plugin>
+</plugins>
+</build>  
+  
+</project>
